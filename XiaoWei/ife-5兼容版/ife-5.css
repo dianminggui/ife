@@ -1,0 +1,218 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
+    body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; }
+    h1, h2, h3, h4, h5, h6{ font-size:100%; }
+    address, cite, dfn, em, var { font-style:normal; }
+    code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+    small{ font-size:12px; }
+    ul, ol { list-style:none; }
+    a { text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    sup { vertical-align:text-top; }
+    sub{ vertical-align:text-bottom; }
+    legend { color:#000; }
+    fieldset, img { border:0; }
+    button, input, select, textarea { font-size:100%; }
+    table { border-collapse:collapse; border-spacing:0; }
+body{
+	background-color: #dedede;
+	font-family: "微软雅黑";
+	_position: relative;
+}
+.main{
+	width:96%;
+	margin: 0 auto;
+	position: relative;
+	padding-top: 82px;
+	_overflow:hidden;
+}
+.img_wrap{
+	max-width:300px;
+	/*_width: expression(this.offsetWidth > 300 ? '300px': true);*/
+}
+.img_wrap img{
+	width: 100%;	
+	height: auto;
+}
+.content{
+	margin-right: 400px;
+}
+.information{
+	width:330px;
+	position:absolute;
+	right:0;
+	top:82px;
+}
+h2,h3,p,ul,ol{
+	margin-bottom: 10px;
+}
+.article,.picture,.information{	
+	background-color: #fff;
+	padding:25px;
+	box-shadow: 2px 2px 2px #828282;
+	margin-bottom:20px;
+}
+.nav{
+	min-width: 650px;	
+	height: 62px;
+	background:rgba(0,0,0,0.75);
+	position: fixed;
+	top:0;
+	width:100%;
+	z-index: 10;
+	_position:absolute;/*ie6*/
+	_top:expression(eval(document.documentElement.scrollTop));/*ie6*/
+	*left:0px;
+}
+*html{  
+    background-image:url(about:blank);
+    background-attachment:fixed;
+}
+@media \0screen\,screen\9{
+	.nav{/*ie6,7,8*/   
+     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#C0000000, endColorstr=#C0000000);
+	}
+}
+.nav img{
+	padding: 11px 50px;
+	float: left;
+}
+.nav ul{
+	margin:0;
+	padding-top:27px;
+	padding-right: 30px;
+	float:right;
+}
+.nav li{
+	float: left;
+	margin-left: 25px;
+	list-style-type: disc;
+	_display:inline;	
+}
+.nav a{
+	text-decoration: none;
+	font-size: 12px;
+	color: #fff;
+}
+.nav a:hover{
+	color: #A9A9A9;
+}
+.title2,.author{
+	color:#696969;
+}
+.author{
+	font-size: 14px;
+}
+.article p{
+	text-indent: 34px;
+}
+.article2 ul{
+	list-style-type: none;	
+}
+.picture ul{
+margin:10px  0;
+padding:0;
+}
+.picture li{
+	text-align: center;
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid #C0C0C0;
+	max-width:120px;
+	/*_width: expression(this.offsetWidth > 120 ? '120px': true);*/
+	margin:10px;
+	*display: inline;
+	*zoom:1;
+
+}
+.picture img{
+	max-width: 100%;
+	height:auto;
+}
+.article3 li{
+
+	list-style: decimal inside;
+}
+table{
+	border-collapse: collapse;
+	width: 100%;
+}
+td,th{
+	border:solid 1px #C0C0C0;
+}
+th{
+	background-color: #333333;
+	color: #fff;
+}
+tfoot{
+	background-color: #cccccc;
+	font-weight: bold;
+}
+
+.information h4{	
+	border-left:solid 4px #C0C0C0;
+	padding:3px 10px;
+}
+.information ul{
+	margin:0;
+	padding:0;
+	list-style-type: none;
+	font-size: 14px;	
+}
+form li{
+	margin-bottom: 5px;	
+}
+form label{
+	display: inline-block;
+	width:120px;
+	text-align: right;
+	padding-right: 8px;
+}
+.tip1:before{
+	content:"";
+	display:inline-block;
+	width:120px;
+	padding-right: 8px;
+}
+.tip1,.tip2{
+	font-size: 12px;
+	color:#707070;  
+} 
+.tip{
+	display: inline-block;
+	width:120px;
+	padding-right: 8px;
+}
+form textarea{
+	width:50%;
+	overflow-y:auto;
+}
+.sex,.selectbox,.hobbyCheckbox{
+	display: inline;
+}
+.sex label,.hobbyCheckbox label{
+	width: auto;
+}
+
+textarea{
+	vertical-align: text-top;
+}
+.submit{
+	width:100%;
+	font-size: 20px;
+	color: #FFF;
+	padding:10px;
+	background-color:#3355d0;
+	border-radius: 10px;
+}
+@media \0screen\,screen\9{
+	.submit{/*ie6,7,8*/   
+     border-style: none;
+	}
+}
+.footer{
+	text-align: center;
+	padding:20px;
+	color: #FFF;
+	font-size: 12px;
+	background-color: #000;
+}

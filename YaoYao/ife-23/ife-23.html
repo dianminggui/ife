@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE Integrated Task 02</title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		span{
+			margin-left :116px;
+			display :block;
+			font-size : 18px;
+			margin-top : 5px;
+			color :#b2b2b2;
+			visibility: hidden;
+		}
+		div{
+			margin-top: 10px;
+			height:59px;
+		}
+		form{
+			margin:100px 0 0 30px;
+			font-family:"微软雅黑";
+			font-size: 0px;
+		}
+		input,button{
+			border-radius: 5px;
+			border-width: 1px;
+			border-style: solid;
+			height: 30px;
+			box-sizing: border-box;
+			font-size: 20px;
+		}
+		input{
+			width:300px;
+			text-indent: 5px;
+		}
+		button{
+			background-color: #2f79ba;
+			color: #fff;
+			padding:0 10px;
+			margin-left: 354px;
+			display: inline-block;
+			font-size: 20px;
+			text-indent: 0;
+			width:62px;
+		}
+		label{
+			display: inline-block;
+			width:106px;
+			font-size:20px;
+			margin-right: 10px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<div>
+			<label>名称</label>
+			<input type="text" style="border-color: #b2b2b2;" name="name"/>
+			<span  style="color:#b2b2b2;">必填，长度为4~16个字符</span>
+		</div>
+		<div>
+			<label>密码</label>
+			<input type="password" style="border-color: #b2b2b2;" name="psw"/>
+			<span  style="color:#b2b2b2;">必填，长度为4~16个字符</span>
+		</div>
+		<div>
+			<label>密码确定</label>
+			<input type="psw" style="border-color: #b2b2b2;" name="repsw"/>
+			<span  style="color:#b2b2b2;">必填，再次输入相同密码</span>
+		</div>
+		<div>
+			<label>邮箱</label>
+			<input type="text" style="border-color: #b2b2b2;" name="email"/>
+			<span  style="color:#b2b2b2;">必填，请输入11位数字</span>
+		</div>
+		<div>
+			<label>手机</label>
+			<input type="text" style="border-color: #b2b2b2;" name="phone"/>
+			<span  style="color:#b2b2b2;">必填，长度为4~16个字符</span>
+		</div>
+		<button type="button" id="submit">提交</button>
+	</form>
+	<script type="text/javascript">
+		(function() {
+			var submit = document.getElementById('submit');
+			var input_right = [];//记录表单每一项是否填写正确
+
+			function getTips( str, event ) {//获得焦点时得到填写提示
+			//	console.log(event.target.parentNode);
+				var span = event.target.parentNode.getElementsByTagName('span')[0];
+					span.style.visibility = "visible";
+					span.style.color = '#b2b2b2';
+					span.innerHTML = str;
+				
+			}
+
+			function wrong( str, event ) {//填写错误时的提示
+				var span = event.target.parentNode.getElementsByTagName('span')[0];
+				span.style.visibility = "visible";
+				span.style.color = "#e20007";
+				span.innerHTML = str;
+			//	console.log(str);
+			}
+
+			function right( str, event ) {//填写正确时的提示
+				var span = event.target.parentNode.getElementsByTagName('span')[0];
+				span.style.color = "#5cbf41";
+				span.innerHTML = str;
+			}
+
+				
+			function isNull( text, minlength, maxLength ) {//验证是否为空的情况
+				if (text == null || text == "") {
+					return true;
+				}
+				else return false;
+			}
+
+			function getLength( str ){//得到字符长度
+				var re = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+				var length = 0;
+				for (var i = 0; i < str.length; i++){
+					if (re.test(str[i])) {length += 2;}//汉字长度为2
+					else {length ++;}
+				}
+				return length;
+			}
+
+			function overLength( text, minlength, maxLength ) {//验证长度是否在范围内
+				if (getLength(text) < minlength || getLength(text) > maxLength){
+					return true;
+				}
+				else return false
+			}
+
+			function illegalEmail( text ) {//验证邮箱是否非法
+				var email = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+				if (! email.test(text)){
+					return true;
+				}
+				else return false;
+			}
+
+			function illegalPhone( text ) {//验证手机号是否非法
+				var phone = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+				if (! phone.test(text)){
+					return true;
+				}
+				else return false;
+			}
+
+			//绑定得到焦点填写提示事件
+			var input = document.getElementsByTagName('input');
+			input[0].onfocus = function(event) {
+				getTips('必填，长度为4~16个字符',event);
+			}
+			input[1].onfocus = function(event) {
+				getTips('必填，长度为4~16个字符',event);
+			}
+			input[2].onfocus = function(event) {
+				getTips('必填，再次输入相同密码',event);
+			}
+			input[3].onfocus = function(event) {
+				getTips('必填，请输入合法邮箱',event);
+			}
+			input[4].onfocus = function(event) {
+				getTips('必填，请输入11位数字',event);
+			}
+
+			//绑定失去焦点检验事件
+			input[0].onblur = function(event) {
+				var text = event.target.value;
+				if (isNull(text) || overLength(text,4,6)){
+					if (isNull(text)) {wrong('名字不能为空',event);}
+					else {wrong('长度为4~16个字符,汉字算2个字符',event);}
+					input_right[0] = false;
+				}
+				else {
+					right("名字格式正确",event);
+					input_right[0] = true;
+				}
+			}
+			input[1].onblur = function(event) {
+				var text = event.target.value;
+				if (isNull(text) || overLength(text,4,6)){
+					if (isNull(text)) {wrong('密码不能为空',event);}
+					else {wrong('长度为4~16个字符',event);}
+					input_right[1] = false;
+				}
+				else {
+					right("密码可用",event);
+					input_right[1] = true;
+				}
+			}
+			input[2].onblur = function(event) {
+				var text = event.target.value;
+				if (isNull(text)) {
+					wrong('不能为空,请重新输入密码,',event);
+					input_right[2] = false;
+				}
+				else {
+					var psw = input[1].value;
+					if (text != psw) {wrong('密码不相同',event);input_right[2] = false;}
+					else {right('密码正确',event);input_right[2] = true;}
+				}
+			}
+			input[3].onblur = function(event) {
+				var text = event.target.value;
+				if (isNull(text) || illegalEmail( text )){
+					if (isNull(text)) {wrong('邮箱不为空',event);}
+					else {wrong('邮箱格式不正确',event);}
+					input_right[3] = false;
+				}
+				else {
+					right('邮箱可用',event);
+					input_right[3] = true;
+				}
+			}
+			input[4].onblur = function(event) {
+				var text = event.target.value;
+				if (isNull(text) || illegalPhone(text)) {
+					if (isNull(text)) wrong('名字不为空',event);
+					else wrong('手机号格式不正确',event);
+					input_right[4] = false;
+				}
+				else {
+					right('手机可用',event);
+					input_right[4] = true;
+				} 
+			}
+
+			//绑定提交时重新检验事件
+			submit.onclick = function(event) {
+				var event = document.createEvent('HTMLEvents');//模拟事件
+					event.initEvent("blur",true,false);
+					input[0].dispatchEvent(event);
+					input[1].dispatchEvent(event);
+					input[2].dispatchEvent(event);
+					input[3].dispatchEvent(event);
+					input[4].dispatchEvent(event);
+				if (input_right[0] == true && input_right[1] == true && input_right[2] == true && input_right[3] == true && input_right[4] == true) alert("提交成功");
+				else {
+					alert("提交失败");}
+			}
+
+		})();
+	</script>
+</body>
+</html>

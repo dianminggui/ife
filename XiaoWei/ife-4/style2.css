@@ -1,0 +1,8 @@
+.center{
+	position:absolute;
+	top:50%;
+	left: 50%;
+	margin-left:-200px;
+	margin-top: -100px;	 
+}
+/*负边距居中,不适用于宽度高度为百分比的*/

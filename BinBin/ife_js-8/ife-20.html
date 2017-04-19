@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE JavaScript Task 08</title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		div{
+			display: flex;						
+			outline:1px solid #000;
+			margin:8px;
+			padding:5px;
+			background-color: #fff;
+			color:#000;
+		}
+		button{
+			margin:10px;
+		}
+	</style>
+</head>
+<body>
+<div id="tree" style="width:1280px;height:180px">
+	Super
+	<div style="height:150px;">
+		Car
+		<div style="height:120px;">
+			Apple
+			<div style="height:90px;">Pear</div>
+			<div style="height:90px;">Pig</div>
+			<div style="height:90px;">Cola</div>
+			<div style="height:90px;">Soccer</div>
+		</div>
+		<div style="height:120px;">
+			Phone
+		</div>
+		<div style="height:120px;">
+			<div style="height:90px;">Book</div>
+			<div style="height:90px;">School</div>
+		</div>
+	</div>
+	<div style="height:150px;">
+		Note
+		<div style="height:120px;">
+			Human
+			<div style="height:90px;">Code</div>
+			<div style="height:90px;">Chocolate</div>
+			<div style="height:90px;">Man</div>
+		</div>
+		<div style="height:120px;">
+			Program
+			<div style="height:90px;">
+				Bement
+				<div style="height:60px;">
+					Cat
+				</div>
+				</div>
+			<div style="height:90px;">Gass</div>
+		</div>
+	</div>
+	<div style="height:150px;">
+		Flash
+	</div>
+</div>
+<button id="preorder">先序遍历</button>
+<!--<button id="inorder">中序遍历</button>-->
+<button id="postorder">后序遍历</button>
+<label>查询：</label><input type="text" name="searchData" /><button id="presearch">先序查询</button><button id="postsearch">后序查询</button>
+<script type="text/javascript">
+	(function(){
+		var preorder = document.getElementById('preorder');
+//		var inorder = document.getElementById('inorder');
+		var postorder = document.getElementById('postorder');
+		var tree = document.getElementById('tree');	
+		var nodes = [];//先序中序后序遍历了的节点依次放入这个数组中
+		
+		var presearch=document.getElementById('presearch');
+		var postsearch=document.getElementById('postsearch');
+		//先序
+		function preSort(tree) {
+				if (tree) {
+					nodes.push(tree);
+					var child = tree.childNodes;
+					var arr = Array.prototype.filter.call(child,function(item) {
+						return /div/i.test(item.nodeName);
+					});
+					//console.log(arr.length);
+					for (var i = 0; i < arr.length; i ++){
+						if (arr[i]) { preSort(arr[i]);}
+					}
+				}				
+			}
+		//中序
+		/*
+		function inSort(tree) {
+				if (tree) {
+					var child = tree.childNodes;
+					var arr = Array.prototype.filter.call(child,function(item) {
+						return /div/i.test(item.nodeName);
+					});
+					//console.log(arr.length);
+					if (arr[0]) { inSort(arr[0]);}
+					nodes.push(tree);
+					if (arr[1]) { inSort(arr[1]);}
+				}				
+			}
+		*/
+		//后序
+		function postSort(tree) {
+				if (tree) {
+					var child = tree.childNodes;
+					var arr = Array.prototype.filter.call(child,function(item) {
+						return /div/i.test(item.nodeName);
+					});
+					//console.log(arr.length);
+					for (var i = 0; i < arr.length; i ++){
+						if (arr[i]) { postSort(arr[i]);}
+					}
+					nodes.push(tree);
+				}				
+			}
+		//对已经排好相应顺序的节点数组nodes，每个节点间隔时间上色，制作动画效果
+		function setTime(nodes,searchData){
+			var re = new RegExp(searchData,"i");
+			var find = false;
+			nodes.forEach(function(item,index){
+				setTimeout(function(item){
+					item.style.backgroundColor = "blue";
+					if (searchData){
+						for (var j = 0, max = item.childNodes.length; j < max; j ++){
+							if (item.childNodes[j].nodeType == 3) {
+							//	console.log(item.childNodes[j].nodeValue);
+								break;}
+					}
+						if (j!=max && item.childNodes[j].nodeValue.search(re) != -1) {
+							find = true;
+							setTimeout(function(item) {
+								item.style.color = "#fff";
+							},500,item);
+						}
+						if (index == nodes.length - 1 && find == false){
+								alert("没有该查询内容");
+							}	
+					}
+				},index*1000,item);
+			});
+		}
+
+		//绑定事件	
+		preorder.onclick = function() {
+			var divs = document.getElementsByTagName("div");
+			Array.prototype.forEach.call(divs,function(item) {//将每个div的颜色置为初始值白色
+				item.style.backgroundColor = "#fff";
+				item.style.color = "#000";
+			});
+			nodes = [];		
+			preSort(tree,nodes);
+			setTime(nodes);
+		};
+		/*
+		inorder.onclick = function() {
+			var divs = document.getElementsByTagName("div");
+			Array.prototype.forEach.call(divs,function(item) {//将每个div的颜色置为初始值白色
+				item.style.backgroundColor = "#fff";
+			});
+			nodes = [];		
+			inSort(tree,nodes);
+			setTime(nodes);
+		};*/
+		postorder.onclick = function() {
+			var divs = document.getElementsByTagName("div");
+			Array.prototype.forEach.call(divs,function(item) {//将每个div的颜色置为初始值白色
+				item.style.backgroundColor = "#fff";
+				item.style.color = "#000";
+			});
+			nodes = [];		
+			postSort(tree,nodes);
+			setTime(nodes);
+		};
+		presearch.onclick = function() {
+			var divs = document.getElementsByTagName("div");
+			Array.prototype.forEach.call(divs,function(item) {//将每个div的颜色置为初始值白色
+				item.style.backgroundColor = "#fff";
+				item.style.color = "#000";
+			});
+			nodes = [];	
+			preSort(tree,nodes);
+			var searchData=document.getElementsByTagName("input")[0].value;
+			setTime(nodes,searchData);
+
+		};
+		postsearch.onclick = function() {
+			var divs = document.getElementsByTagName("div");
+			Array.prototype.forEach.call(divs,function(item) {//将每个div的颜色置为初始值白色
+				item.style.backgroundColor = "#fff";
+				item.style.color = "#000";
+			});
+			nodes = [];	
+			postSort(tree,nodes);
+			var searchData=document.getElementsByTagName("input")[0].value;
+			setTime(nodes,searchData);
+
+		};
+	})();
+</script>
+</body>
+</html>

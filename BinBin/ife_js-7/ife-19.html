@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE JavaScript Task 07</title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		div{
+			display: flex;
+			justify-content:center;
+			align-items: center;
+			outline:1px solid #000;
+			margin:10px;
+			background-color: #fff;
+		}
+	</style>
+</head>
+<body>
+<div id="tree" style="width:600px;height:180px">
+	<div style="width:280px;height:150px">
+		<div style="width:120px;height:120px;">
+			<div style="width:40px;height:90px"></div>
+			<div style="width:40px;height:90px"></div>
+		</div>
+		<div style="width:120px;height:120px;">
+			<div style="width:40px;height:90px"></div>
+			<div style="width:40px;height:90px"></div>
+		</div>
+	</div>
+	<div style="width:280px;height:150px">
+		<div style="width:120px;height:120px;">
+			<div style="width:40px;height:90px"></div>
+			<div style="width:40px;height:90px"></div>
+		</div>
+		<div style="width:120px;height:120px;">
+			<div style="width:40px;height:90px"></div>
+			<div style="width:40px;height:90px"></div>
+		</div>
+	</div>
+</div>
+<button id="preorder">先序遍历</button>
+<button id="inorder">中序遍历</button>
+<button id="postorder">后序遍历</button>
+<script type="text/javascript">
+	(function(){
+		var preorder = document.getElementById('preorder');
+		var inorder = document.getElementById('inorder');
+		var postorder = document.getElementById('postorder');
+		var tree = document.getElementById('tree');	
+		var nodes = [];//先序中序后序遍历了的节点依次放入这个数组中
+		//先序
+		function preSort(tree) {
+				if (tree) {
+					nodes.push(tree);
+					var child = tree.childNodes;
+					var arr = Array.prototype.filter.call(child,function(item) {
+						return /div/i.test(item.nodeName);
+					});
+					//console.log(arr.length);
+					if (arr[0]) { preSort(arr[0]);}
+					if (arr[1]) { preSort(arr[1]);}
+				}				
+			}
+		//中序
+		function inSort(tree) {
+				if (tree) {
+					var child = tree.childNodes;
+					var arr = Array.prototype.filter.call(child,function(item) {
+						return /div/i.test(item.nodeName);
+					});
+					//console.log(arr.length);
+					if (arr[0]) { inSort(arr[0]);}
+					nodes.push(tree);
+					if (arr[1]) { inSort(arr[1]);}
+				}				
+			}
+		//后序
+		function postSort(tree) {
+				if (tree) {
+					var child = tree.childNodes;
+					var arr = Array.prototype.filter.call(child,function(item) {
+						return /div/i.test(item.nodeName);
+					});
+					//console.log(arr.length);
+					if (arr[0]) { postSort(arr[0]);}
+					if (arr[1]) { postSort(arr[1]);}
+					nodes.push(tree);
+				}				
+			}
+		//对已经排好相应顺序的节点数组nodes，每个节点间隔时间上色，制作动画效果
+		function setTime(nodes){
+			nodes.forEach(function(item,index){
+				setTimeout(function(item){
+					item.style.backgroundColor = "blue";
+				},index*500,item);
+			});
+
+		}
+		//绑定事件	
+		preorder.onclick = function() {
+			var divs = document.getElementsByTagName("div");
+			Array.prototype.forEach.call(divs,function(item) {//将每个div的颜色置为初始值白色
+				item.style.backgroundColor = "#fff";
+			});
+			nodes = [];		
+			preSort(tree,nodes);
+			setTime(nodes);
+		};
+		inorder.onclick = function() {
+			var divs = document.getElementsByTagName("div");
+			Array.prototype.forEach.call(divs,function(item) {//将每个div的颜色置为初始值白色
+				item.style.backgroundColor = "#fff";
+			});
+			nodes = [];		
+			inSort(tree,nodes);
+			setTime(nodes);
+		};
+		postorder.onclick = function() {
+			var divs = document.getElementsByTagName("div");
+			Array.prototype.forEach.call(divs,function(item) {//将每个div的颜色置为初始值白色
+				item.style.backgroundColor = "#fff";
+			});
+			nodes = [];		
+			postSort(tree,nodes);
+			setTime(nodes);
+		};
+	})();
+</script>
+</body>
+</html>

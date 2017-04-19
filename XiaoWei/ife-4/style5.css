@@ -1,0 +1,12 @@
+body{
+	width:100vw;/*父元素宽度高度要已知*/
+	height:100vh;
+	display: table-cell;
+	vertical-align: middle;
+	text-align:center; 
+}
+.center{/*子元素需要是inline-block,inline*/
+	display: inline-block;
+	position: relative;
+}
+/*table-cell居中,适用于父元素高度宽度给定(不能使百分比),子元素要是inline-block或inline*/

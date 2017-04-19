@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IFE JavaScript Task 04</title>
+    <meta charset="utf-8" />
+    <style>
+        button{
+            border-radius: 5px;
+            border-width: 1px;
+        }
+        #arr{
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<input type="text" name="arr_data" />
+<button id="left_in">左侧入</button>
+<button id="right_in" style="margin-right: 20px">右侧入</button>
+<button id="left_out">左侧出</button>
+<button id="right_out">右侧出</button>
+<button id="sort">冒泡排序</button>
+<div id="arr" style="font-size: 0">
+    <div style="height:99px"><span>99</span></div>
+    <div style="height:88px"><span>88</span></div>
+    <div style="height:77px"><span>77</span></div>
+    <div style="height:66px"><span>66</span></div>
+    <div style="height:55px"><span>55</span></div>
+    <div style="height:44px"><span>44</span></div>
+    <div style="height:33px"><span>33</span></div>
+    <div style="height:22px"><span>22</span></div>
+    <div style="height:11px"><span>11</span></div>
+    <div style="height:16px"><span>16</span></div>
+    <div style="height:78px"><span>78</span></div>
+    <div style="height:29px"><span>29</span></div>
+    <div style="height:36px"><span>36</span></div>
+    <div style="height:43px"><span>43</span></div>
+    <div style="height:17px"><span>17</span></div>
+    <div style="height:49px"><span>49</span></div>
+    <div style="height:57px"><span>57</span></div>
+    <div style="height:84px"><span>84</span></div>
+
+</div>
+
+<script type="text/javascript">
+    (function(){
+        var left_in=document.getElementById("left_in");
+        var right_in=document.getElementById("right_in");
+        var left_out=document.getElementById("left_out");
+        var right_out=document.getElementById("right_out");
+        var sort=document.getElementById("sort");
+        var arr=document.getElementById("arr");
+
+        var style=document.getElementsByTagName("style")[0];
+        style.appendChild(document.createTextNode("#arr div{display:inline-block;width:20px;margin-right:5px;background-color:red;position:relative;}"));
+        style.appendChild(document.createTextNode("span{font-size:12px;color:#fff;position:absolute;bottom:0px;left:3px;}"));
+
+        left_in.onclick=function(){
+            if(arr.getElementsByTagName("div").length<50){
+                var input=document.getElementsByTagName("input")[0].value;
+                        if(input.length!=0){
+                            var text=parseInt(input);
+                            if(text<10||text>100){alert("限制输入的数字在10-100");}
+                                    else{   var div=document.createElement("div");
+                                            var span=document.createElement("span");
+                                            span.innerHTML=text;
+                                            div.style.height=text+"px";
+                                            div.appendChild(span);
+                                            
+                                            if(arr.firstChild)
+                                                {arr.insertBefore(div,arr.firstChild);}
+                                            else
+                                               arr.appendChild(div);
+                                           
+                                       }
+                        }
+                        else{
+                            alert("请输入非空数字");
+                        }}
+            else{alert("插入总数量最多50个");}
+        };
+
+        right_in.onclick=function(){
+            if(arr.getElementsByTagName("div").length<50){
+                var input=document.getElementsByTagName("input")[0].value;
+                        var text=parseInt(document.getElementsByTagName("input")[0].value);
+                        if(input.length!=0){
+                            var text=parseInt(input);
+                            if(text<10||text>100){alert("限制输入的数字在10-100");}
+                            else{   var div=document.createElement("div");
+                                    var span=document.createElement("span");
+                                    span.innerHTML=text;
+                                    div.style.height=text+"px";
+                                    div.appendChild(span);
+                                    
+                                    arr.appendChild(div);
+                                    }
+                        }
+                        else{
+                            alert("请输入非空数字");
+                        }}
+            else{alert("插入总数量最多50个");}
+
+        };
+        left_out.onclick=function(){
+            var divs=arr.getElementsByTagName("div");
+            if(divs.length!=0){
+                var removeNode=arr.removeChild(divs[0]);
+                var text=removeNode.firstChild.firstChild.nodeValue;
+                alert(text);
+            }
+        };
+        right_out.onclick=function(){
+            var divs=arr.getElementsByTagName("div");
+            if(divs.length!=0){
+                var removeNode=arr.removeChild(divs[divs.length-1]);
+                var text=removeNode.firstChild.firstChild.nodeValue;
+                alert(text);
+            }
+        };
+        //可视化冒泡排序
+       sort.onclick=function(){
+            var buttons=document.getElementsByTagName("button");
+            for(var k=0;k<buttons.length;k++){//进行冒泡排序的时候暂时不让用户插入新数据，按钮此时不可用
+                buttons[k].disabled=true;
+            }
+            var divs=arr.getElementsByTagName("div");
+            var time=-(900*divs.length-1);
+            for(var i=1;i<divs.length;i++){
+                
+                setTimeout(function(divs,i){//每一轮冒泡
+                            for(var j=0;j<divs.length-i;j++){
+                                
+                                setTimeout(function(divs,j){ //每两个数比较，比较的时候让两个数显示绿色
+                                            setTimeout(function(divs,j){
+                                                divs[j].style.backgroundColor="green";
+                                                divs[j+1].style.backgroundColor="green";
+                                            },200,divs,j);
+                                            setTimeout(function(divs,j){                                           
+                                                if(divs[j].style.height>divs[j+1].style.height){
+                                                    arr.insertBefore(divs[j+1],divs[j]);
+                                                }
+                                            },400,divs,j);
+                                            setTimeout(function(divs,j){
+                                                        divs[j].style.backgroundColor="red";
+                                                        divs[j+1].style.backgroundColor="red";
+                                                        if(j==divs.length-i-1){
+                                                            divs[j+1].style.backgroundColor="blue";
+                                                        }
+                                                        if(j==0&&divs.length-i==1){divs[j].style.backgroundColor="blue";}
+                                            },600,divs,j);
+                                },800*j,divs,j);
+                            }
+                            },time+=(900*(divs.length-i)),divs,i);
+            }
+            setTimeout(function(){
+                            for(var k=0;k<buttons.length;k++){//按钮恢复可用
+                            buttons[k].disabled=false;
+            }},time+=900);
+
+        }
+    })();
+</script>
+</body>
+</html>

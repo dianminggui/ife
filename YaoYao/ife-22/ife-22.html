@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE Integrated Task 01</title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		span{
+			display: block;
+			font-size: 18px;
+			margin-top:5px;
+		}
+		span:before{
+			content: " ";
+			width: 56px;
+			margin-right: 10px;
+			display: inline-block;
+		}
+		form{
+			margin:100px 0 0 30px;
+			font-family:"微软雅黑";
+			font-size: 0px;
+		}
+		input,button{
+			border-radius: 5px;
+			border-width: 1px;
+			border-style: solid;
+			height: 30px;
+			box-sizing: border-box;
+			font-size: 20px;
+		}
+		input{
+			width:300px;
+			text-indent: 5px;
+		}
+		button{
+			margin-left: 10px;
+			background-color: #2f79ba;
+			color: #fff;
+			padding:0 10px;
+		}
+		label{
+			display: inline-block;
+			width:56px;
+			font-size:20px;
+			margin-right: 10px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<label>名称</label>
+		<input type="text" style="border-color: #b2b2b2;" name="oneIn"/>
+		<button type="button" id="oneBtn">验证</button>
+		<span id="tip1" style="color:#b2b2b2;">必填，长度为4~16个字符</span>
+	</form>
+	<script type="text/javascript">
+		(function() {
+			var oneBtn = document.getElementById('oneBtn');
+
+			//得到字符长度
+			function getLength(str){
+				var re = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+				var length = 0;
+				for (var i = 0; i < str.length; i++){
+					if (re.test(str[i])) {length += 2;}//汉字长度为2
+					else {length ++;}
+				}
+				return length;
+			}
+
+			oneBtn.onclick = function() {
+				var input = document.getElementsByTagName('form')[0].oneIn;
+				var text = input.value;
+				var span = document.getElementsByTagName('span')[0];
+			//	console.log(getLength(text));
+				if (text == null || text == "") {//验证为空的情况
+					span.innerHTML = "姓名不能为空"
+					span.style.color = "#e20007";
+				}
+				else if(getLength(text) < 4 || getLength(text) > 16){//验证超出长度限制的情况
+					span.innerHTML = "长度要是4~16个字符,汉字算2个字符"
+					span.style.color = "#e20007";
+				}
+				else{//正确的情况
+					input.style.borderColor = "#e20007";
+					input.style.borderColor = "#5cbf41";
+					span.innerHTML = "名称格式正确"
+					span.style.color = "#5cbf41";
+				}
+			};
+			
+		})();
+	</script>
+</body>
+</html>

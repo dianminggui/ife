@@ -1,0 +1,10 @@
+body{	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;/*某一固定高度(vh是视口高度)*/
+}
+.center{
+	position:relative;
+}
+/*flexbox布局(好用)对于垂直对齐,父级要有固定高度*/

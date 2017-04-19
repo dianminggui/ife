@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE JavaScript Task 06</title>
+	<meta charset="utf-8" />
+	<style>
+		button{
+			border-radius: 5px;
+			border-width: 1px;
+			display: block;
+			margin-bottom: 10px;
+		}
+		div{
+			margin-bottom: 10px;
+		}
+		textarea{
+			width:200px;
+			height:100px;
+		}
+		input{
+			width:200px;
+		}
+		.buttons{
+			vertical-align: top;
+			display: inline-block;
+			margin-left: 20px;
+		}
+		.tips{
+			background-color: yellow;
+		}
+		.tip{
+			vertical-align: top;
+		}
+		.search_div{
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+<!--<input type="text" name="arr_data" />-->
+<label class="tips">允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔</label>
+<div class="search_div">
+	<label>查询：</label><input type="text" name="search_data" />
+	<button id="search" style="display: inline-block;margin-left: 20px;">确 定</button>
+</div>
+<label class="tip">插入：</label><textarea></textarea>
+<div class="buttons">
+	<button id="left_in">左侧入</button>
+	<button id="right_in">右侧入</button>
+	<button id="left_out">左侧出</button>
+	<button id="right_out">右侧出</button>
+</div>
+<div id="arr"></div>
+
+<script type="text/javascript">
+	(function() {
+		var left_in = document.getElementById("left_in"),
+			right_in = document.getElementById("right_in"),
+			left_out = document.getElementById("left_out"),
+			right_ou = document.getElementById("right_out"),
+			search = document.getElementById("search");
+
+
+		var style = document.getElementsByTagName("style")[0];
+		style.appendChild(document.createTextNode("#arr span{display:inline-block;padding:10px;margin-right:10px;margin-top:10px;background-color:red;color:#fff;}"));
+
+		left_in.onclick = function () {
+			var text = document.getElementsByTagName("textarea")[0].value;
+			if (text.length == 0) {
+				alert("请输入非空内容");
+			}
+			else {
+				var insert_data = text.split(/[\,，、\s]/);//根据空格，逗号等分隔符分隔字符串
+				insert_data.forEach( function(item) {
+					//	console.log(item);					
+					if (item.length != 0) {
+						var span = document.createElement("span");
+						span.innerHTML = item;
+						var arr = document.getElementById("arr");
+						if (arr.firstChild) {
+							arr.insertBefore(span,arr.firstChild);
+						}
+						else {
+							arr.appendChild(span);
+						}
+					}					
+				});				
+			}
+		};
+
+		right_in.onclick = function() {
+			var text = document.getElementsByTagName("textarea")[0].value;
+			if (text.length == 0) {
+				alert("请输入非空内容");
+			}
+			else {
+				var insert_data = text.split(/[\,，、\s]/);//根据空格，逗号等分隔符分隔字符串
+				insert_data.forEach( function(item) {
+					//	console.log(item);
+					if (item.length != 0) {
+						var span = document.createElement("span");
+						span.innerHTML = item;
+						var arr = document.getElementById("arr");
+						arr.appendChild(span);
+					}
+				});
+			}
+		};
+		left_out.onclick = function() {
+			if (arr.childNodes.length != 0) {
+				arr.removeChild(arr.firstChild);
+			}
+		};
+		right_out.onclick = function() {
+			if (arr.childNodes.length != 0) {
+				arr.removeChild(arr.lastChild);
+			}
+		};
+		search.onclick = function() {
+			var search_data = document.getElementsByTagName("input")[0].value;
+			if (search_data == null || search_data == "") {
+				alert("请输入非空内容进行查询");
+			}
+			else {
+				var spans = document.getElementById("arr").getElementsByTagName("span");
+				for (var i = 0, max = spans.length; i < max; i++) {
+					if (spans[i].firstChild.nodeValue.search(search_data) != -1) {//查询每一个span里的字符串是否包括查询字符串
+						spans[i].style.backgroundColor = "blue";
+					}
+					else {
+						spans[i].style.backgroundColor = "";//将上一次查询结果重置为原来的样式
+					}
+				}
+			}
+		};
+	})();
+</script>
+</body>
+</html>

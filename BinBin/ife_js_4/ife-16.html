@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE JavaScript Task 04</title>
+	<meta charset="utf-8" />
+	<style>
+		button{
+			border-radius: 5px;
+			border-width: 1px;
+		}
+
+	</style>
+</head>
+<body>
+<input type="text" name="arr_data" />
+<button id="left_in">左侧入</button>
+<button id="right_in" style="margin-right: 20px">右侧入</button>
+<button id="left_out">左侧出</button>
+<button id="right_out">右侧出</button>
+<div id="arr"></div>
+
+<script type="text/javascript">
+	(function(){
+		var left_in=document.getElementById("left_in");
+		var right_in=document.getElementById("right_in");
+		var left_out=document.getElementById("left_out");
+		var right_out=document.getElementById("right_out");
+
+		var style=document.getElementsByTagName("style")[0];
+		style.appendChild(document.createTextNode("#arr span{display:inline-block;padding:10px;margin-right:10px;margin-top:10px;background-color:red;color:#fff;}"));
+
+		left_in.onclick=function(){
+			var text=document.getElementsByTagName("input")[0].value;
+			var span=document.createElement("span");
+			span.innerHTML=text;
+			var arr=document.getElementById("arr");
+			if(arr.firstChild)
+				{arr.insertBefore(span,arr.firstChild);}
+			else
+				arr.appendChild(span);
+		};
+
+		right_in.onclick=function(){
+			var text=document.getElementsByTagName("input")[0].value;
+			var span=document.createElement("span");
+			span.innerHTML=text;
+			var arr=document.getElementById("arr");
+				arr.appendChild(span);
+		};
+		left_out.onclick=function(){
+			if(arr.childNodes.length!=0){
+				arr.removeChild(arr.firstChild);
+			}
+		};
+		right_out.onclick=function(){
+			if(arr.childNodes.length!=0){
+				arr.removeChild(arr.lastChild);
+			}
+		};
+	})();
+</script>
+</body>
+</html>

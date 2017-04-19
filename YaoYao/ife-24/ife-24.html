@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE Integrated Task 03</title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		#radios{
+			padding-left: 120px;
+			margin-bottom: 10px;
+		}
+		input{
+			margin-right:5px;
+		}
+		form{
+			font-size: 0;
+			margin:50px 0 0 30px;
+		}
+		form div{
+			font: 20px "微软雅黑";
+		}
+
+	</style>
+</head>
+<body>
+	<form>
+		<div id="radios">
+			<input type="radio" name="job" checked="checked" id="student" /><label for="student">在校生</label>
+			<input type="radio" name="job" style="margin-left: 200px;" id="worker" /><label for="worker">非在校生</label>
+		</div>
+	</form>
+	<script type="text/javascript">
+		(function(){
+			var job = document.getElementsByName('job');
+			var university = [{city:'北京',school:['北京大学','清华大学','北京邮电大学']},{city:'上海',school:['上海交通大学','复旦大学','同济大学']},{city:'广州',school:['中山大学','华南理工大学','华南农业大学']},{city:'深圳',school:['深圳大学']}];
+			var eventNote = [];//记录两个单选按钮被点击记录,避免连续点击多次时,出现很多个同样的dom节点
+			var form = document.getElementsByTagName('form')[0];
+
+			//radio在校生被选中绑定事件
+			job[0].onclick = function() {
+				if (!eventNote || eventNote[eventNote.length-1] != 'job[0]') {
+					var div = form.getElementsByTagName('div')[1];
+					if (div) {
+						form.removeChild(div);
+					}
+
+					var div = document.createElement('div');
+			
+					var label = document.createElement('label');
+					label.style.display = 'inline-block';
+					label.style.width = '100px';
+					label.style.textAlign = 'right';
+					label.style.marginRight = '20px';
+					label.innerHTML = '学校';
+	
+					var select1 = document.createElement('select');
+					select1.style.width = '200px';
+					select1.style.font = "20px '微软雅黑'";
+					select1.style.borderRadius = '5px';
+					select1.style.borderColor = '#b2b2b2';
+	
+	
+					university.forEach(function(item,index){//给select1城市下拉框添加option
+						var option1 = document.createElement('option');
+						option1.innerHTML = item.city;
+						select1.appendChild(option1);
+						if (index == 0) {
+							option1.selected = 'selected';
+						}
+					});
+	
+					div.appendChild(label);
+					div.appendChild(select1);
+					form.appendChild(div);
+	
+					select1.onclick = function() {//select1选中相应城市后,动态添加select2
+						var selected = select1.value;
+						var select2 = div.getElementsByTagName('select')[1];
+						if (select2) {
+								select2.parentNode.removeChild(select2);
+							}
+	
+						select2 = document.createElement('select');
+						select2.style.width = '300px';
+						select2.style.font = "20px '微软雅黑'";
+						select2.style.borderRadius = '5px';
+						select2.style.borderColor = '#b2b2b2';
+						select2.style.marginLeft = "30px";
+	
+						university.forEach(function(item,index){//给select2学校下拉框添加option
+							if (item.city == selected) {
+								item.school.forEach(function(sch,i){
+									var option2 = document.createElement('option');
+									option2.innerHTML = sch;
+									select2.appendChild(option2);
+								});
+							}
+							div.appendChild(select2);
+						});
+	
+					};	
+					select1.click();//由于select2在触发select1点击事件后才会出现
+					eventNote.push("job[0]");
+					
+				}	
+				
+			};
+
+			//radio非在校生绑定事件
+			job[1].onclick = function() {
+				if (eventNote[eventNote.length-1] != 'job[1]') {
+					var div = form.getElementsByTagName('div')[1];
+					if (div) {
+						form.removeChild(div);
+					}
+
+						var div = document.createElement('div');
+
+						var label = document.createElement('label');
+						label.style.display = 'inline-block';
+						label.style.width = '100px';
+						label.style.textAlign = 'right';
+						label.style.marginRight = '20px';
+						label.innerHTML = '就业单位';
+
+						var input = document.createElement('input');
+						input.type="text" ;
+						input.name="workPlace" ;
+						input.style.width = '530px'
+						input.style.borderRadius = '5px';
+						input.style.fontSize = '20px';
+						input.style.border = '1px solid #b2b2b2';
+						input.style.textIndent = '5px'; 
+
+						div.appendChild(label);
+						div.appendChild(input);
+						form.appendChild(div);
+
+						eventNote.push("job[1]");
+					
+				}
+			};
+
+			job[0].click();//一开始默认radio在校生被选中
+			
+		})();
+	</script>
+</body>
+</html>

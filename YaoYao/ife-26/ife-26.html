@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE Integrated Task 05</title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		table{
+			border-collapse: collapse;
+			text-align: center;
+			font-size: 0px;
+		}
+		td{
+			outline:1px solid #b2b2b2;
+			height: 40px;
+			width:40px;
+			padding:0px;
+		}
+		.tip1 td,.tip2 td{			
+			font-size: 20px;
+			outline-style:none;
+		}
+		.tip2{
+			float:left;
+		}
+		#chess{
+			outline:1px solid #000;
+			float:left;
+			position: relative;
+		}
+		.key{
+			float: left;
+			padding-left: 50px;
+		}
+		li{
+			font-weight: bold;
+			line-height: 22px;
+		}
+		li span{
+			font-weight: normal;
+		}
+		input,button{
+			margin-top: 20px;
+			border-radius: 5px;
+			border:1px solid #b2b2b2;
+			font-size: 20px;
+		}
+		input{
+			margin-right: 10px;
+			text-indent: 5px;
+		}
+	</style>
+</head>
+<body>
+	<table class="tip1">
+		<tr>
+			<td></td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+			<td>7</td>
+			<td>8</td>
+			<td>9</td>
+			<td>10</td>
+		</tr>
+	</table>
+	<table class="tip2">
+			<tr><td>1</td></tr>
+			<tr><td>2</td></tr>
+			<tr><td>3</td></tr>
+			<tr><td>4</td></tr>
+			<tr><td>5</td></tr>
+			<tr><td>6</td></tr>
+			<tr><td>7</td></tr>
+			<tr><td>8</td></tr>
+			<tr><td>9</td></tr>
+			<tr><td>10</td></tr>
+	</table>
+	<table id="chess">
+		<tr>
+			<td>
+				<div id="box" style="background-color: red;width:40px;height:40px;position: absolute;top:240px;left:240px;">
+					<span style='width:40px;height:10px;background-color: blue;position:absolute;left:0px;top:0px;'></span>
+				<div>
+			</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<div class="key">
+		<p>
+			<h4>可点击下列指令码选择指令或者手动输入下列指令码</h5>
+		</p>
+		<ul>
+			<li>TUN LEF<span>：向左转（逆时针旋转90度）</span></li>
+			<li>TUN RIG<span>：向右转（顺时针旋转90度）</span></li>
+			<li>TUN BAC<span>：向右转（旋转180度）</span></li>
+			<li>GO<span>&nbsp;&nbsp; ：向蓝色边所面向的方向前进一格（一格等同于正方形的边长）</span></li>
+			<li>TRA LEF<span>：向屏幕的左侧移动一格，方向不变</span></li>
+			<li>TRA TOP<span>：向屏幕的上面移动一格，方向不变</span></li>
+			<li>TRA RIG<span>：向屏幕的右侧移动一格，方向不变</span></li>
+			<li>TRA BOT<span>：向屏幕的下面移动一格，方向不变</span></li>
+			<li>MOV LEF<span>：方向转向屏幕左侧，并向屏幕的左侧移动一格</span></li>
+			<li>MOV TOP<span>：方向转向屏幕上面，向屏幕的上面移动一格</span></li>
+			<li>MOV RIG<span>：方向转向屏幕右侧，向屏幕的右侧移动一格</span></li>
+			<li>MOV BOT<span>：方向转向屏幕下面，向屏幕的下面移动一格</span></li>
+		</ul>
+		<input type="text" name="operation" /><button type="button">执行</button>
+	</div>
+
+	<script type="text/javascript">
+		(function(){
+			var btn = document.getElementsByTagName('button')[0];
+			var current = 0;
+
+			var lis = document.getElementsByTagName('li');
+			for (var j = 0; j < lis.length; j ++){
+				lis[j].onclick = function(){
+					var value = this.firstChild.nodeValue;
+					document.getElementsByTagName('input')[0].value=value;
+				}; 
+			}
+
+			function moveTop(box){
+				if (box.style.top != '0px') {
+					box.style.top = (box.style.top.replace('px',"") - 40) + 'px';
+				}
+			}
+
+			function moveBottom(box){
+				if (box.style.top != '360px') {
+					box.style.top = (+box.style.top.replace('px',"") + 40) + 'px';
+				}
+			}
+
+			function moveLeft(box){
+				if (box.style.left != '0px') {
+					box.style.left = (box.style.left.replace('px',"") - 40) + 'px';
+				}
+			}
+
+			function moveRight(box){
+				if (box.style.left != '360px') {
+					box.style.left = (+box.style.left.replace('px',"") + 40) + 'px';
+				}
+			}
+			btn.onclick = function() {
+				var text = document.getElementsByTagName('input')[0].value;
+				var box = document.getElementById('box');
+				var span = box.getElementsByTagName('span')[0];
+				box.style.transition = 'transform 1s,top 1s,left 1s';
+				if (text.toLowerCase() == 'go') {
+					var deg = current%360;
+					if (deg == 0 || deg == 180 || deg == -180) {
+						if (deg == 0) {
+							moveTop(box);
+						}
+						else {
+							moveBottom(box);
+						}
+					}
+					else {
+						if (deg == -90 || deg == 270) {
+							moveLeft(box);
+						}
+						else {
+							moveRight(box);
+						}
+
+					}
+				}
+				else if (text.toLowerCase() == 'tun lef') {
+					current = (current - 90);	
+					box.style.transform = 	'rotate('+current+'deg)';
+				//	console.log(current%360);	
+				}
+				else if (text.toLowerCase() == 'tun rig') {
+					current = (current + 90);		
+					box.style.transform = 	'rotate('+current+'deg)';
+				//	console.log(current%360);	
+				}
+				else if (text.toLowerCase() == 'tun bac') {
+					current = (current + 180);		
+					box.style.transform = 	'rotate('+current+'deg)';
+				//	console.log(current%360);	
+				}
+				else if (text.toLowerCase() == 'tra lef' ) {
+					moveLeft(box);
+				}
+				else if (text.toLowerCase() ==  'tra top') {
+					moveTop(box);
+				}
+				else if (text.toLowerCase() == 'tra rig' ) {
+					moveRight(box);
+				}
+				else if (text.toLowerCase() == 'tra bot') {
+					moveBottom(box);
+				}
+				else if (text.toLowerCase() == 'mov lef') {
+					current =  - 90;	
+					box.style.transform = 	'rotate('+current+'deg)';
+					moveLeft(box);
+				}
+				else if (text.toLowerCase() == 'mov top') {
+					current =  0;	
+					box.style.transform = 	'rotate('+current+'deg)';
+					moveTop(box);
+				}
+				else if (text.toLowerCase() == 'mov rig') {
+					current =   90;	
+					box.style.transform = 	'rotate('+current+'deg)';
+					moveRight(box);
+				}
+				else if (text.toLowerCase() == 'mov bot' ) {
+					current =  180;	
+					box.style.transform = 	'rotate('+current+'deg)';
+					moveBottom(box);
+				}
+				
+				else{
+					alert("指令不正确");
+				}
+			};
+
+		})();
+	</script>
+</body>
+</html>
