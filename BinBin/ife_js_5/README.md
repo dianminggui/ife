@@ -1,6 +1,6 @@
 # 任务五：基础JavaScript练习（二）  
 
-我的思路:setTimeout做出可视化  
+我的思路:setTimeout做出冒泡排序可视化  
 
 任务描述  
 基于上一任务  
