@@ -58,9 +58,6 @@
 			<div style="height:90px;">Gass</div>
 		</div>
 	</div>
-	<div style="height:150px;">
-		Flash
-	</div>
 </div>
 <div class="clear" style="display: inline-block;">
 	<button id="preorder">先序遍历</button>
@@ -218,17 +215,39 @@
 			setTime(nodes,searchData);
 
 		};
+		function changecolor(element,color){
+			if (element) {
+				element.style.backgroundColor = color;
+				if(element.childNodes){
+					for(var i=0,max=element.childNodes.length;i<max;i++){
+						if(element.childNodes[i].nodeType==1){
+							element.childNodes[i].style.backgroundColor = color;
+							if(element.childNodes[i].childNodes)changecolor(element.childNodes[i],color);
+						}
+					}
+				}
+			}
+			
+		}
 		//为每个div绑定点击事件
 		function pick(event){
-				this.style.backgroundColor = "green";
 				event.stopPropagation();
+				if(!beforeNode){
+					beforeNode=this;
+				}
+				else{
+					beforeNode=getNode;
+					changecolor(beforeNode,"#fff");
+				}
 				getNode=this;
+				changecolor(this,"green");
 				console.log(getNode);
 
 			}
 		var divs = document.getElementsByTagName("div");
 		var clears = document.getElementsByClassName("clear");
 		var getNode;//记录当前选中节点
+		var beforeNode;//之前的节点
 		for (var k = 0; k < divs.length; k ++){
 			divs[k].onclick = pick
 		}
@@ -252,7 +271,8 @@
 				newDiv.style.height = height - 30 + "px";
 				getNode.appendChild(newDiv);
 				newDiv.onclick = pick;
-				getNode = newDiv;	
+				getNode = "";	
+				resetColor.click();
 			}
 			else {
 				alert("未输入添加元素的内容或者没有选中添加位置");
