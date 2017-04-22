@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFE Integrated Task 06</title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			position:relative;
+		}
+		#surfacedLayer{
+			border:1px solid #000;
+			background-color: #fff; 
+			width:400px;height:200px;
+			position:fixed;
+			top:50%;
+			left: 50%;
+			margin-top:-100px;
+			margin-left:-200px;
+			display: none;
+		}
+		#title{
+			background-color: #FA8072;
+			color:#fff;
+			padding:10px;
+		}
+		#content{
+			padding:10px;
+		}
+		.btns{
+			position:absolute;
+			right:10px;
+			bottom:10px;
+		}
+		.btns button{
+			padding:5px 20px;
+		}
+	</style>
+
+</body>
+</head>
+<body>
+	<!-- 浮出层html-->
+	<div id="surfacedLayer">
+			<div id="title">title</div>
+			<div id="content">
+				<p>内容</p>
+				<div class="btns">
+					<button type="button">确定</button>
+					<button type="button">取消</button>
+				</div>
+			</div>
+	</div>
+	<div style="padding:10px">
+		<span style="background-color: #FA8072;margin-bottom: 10px;">点击标题栏不放,实现拖动效果</span>
+		<div style="width:400px">
+			<label style="display:inline-block;width:150px">浮动层的title:</label>
+			<input type="text" style="width:240px" id="titleData" />
+		</div>
+		<div style="width:400px;margin:10px 0">	
+			<label style="display:inline-block;width:150px">浮动层的content:</label>
+			<input type="text" style="width:240px" id="contentData"/>
+		</div>
+		<div style="width:400px;text-align: right;" >
+			<button type="button" id="btn" style="padding:5px;">打开浮动层</button>
+	</div>
+	</div>
+		<script type="text/javascript"> 
+	(function(){
+			
+			var wrap;
+			var surfacedLayer = document.getElementById('surfacedLayer');
+
+			function surfacedLayerContent (title,content) {//浮出层内容设置
+				if (title) {
+					var titleDiv = document.getElementById('title');
+					titleDiv.innerHTML = title;
+				}
+				if (content) {
+					var contentDiv = document.getElementById('content').getElementsByTagName('p')[0];
+					contentDiv.innerHTML = content;
+				}
+				cover();//遮盖层
+				surfacedLayer.style.display = "block";
+				surfacedLayer.style.zIndex = 1;
+			}
+
+			function cover() {//遮盖层
+				if ( ! wrap) {
+					wrap = document.createElement('div');
+					var body = document.getElementsByTagName('body')[0],
+					winX = document.documentElement.clientWidth || document.body.clientWidth,
+					winY = document.documentElement.clientHeight || document.body.clientHeight;
+
+					wrap.style.height = winY + 'px';
+					wrap.style.width = winX + 'px';
+
+					console.log(wrap.style.height);
+					console.log(wrap.style.width);
+					wrap.id = 'wrap';
+					wrap.style.position = "absolute";
+					wrap.style.top ='0px'
+					wrap.style.background= 'rgba(0,0,0,0.7)';
+					//wrap.innerHTML="1111111111111111111111111111";
+					body.appendChild(wrap);
+					
+				}
+				else {
+					wrap.style.display = "block";
+				}
+			}
+		
+			function close() {//关闭浮出层及遮盖层
+				surfacedLayer.style.display = "none";	
+				wrap.style.display = "none";
+			}
+	
+				var title = document.getElementById('title');
+				title.onmousedown = function (event) {
+					var offsetx = surfacedLayer.offsetLeft - event.clientX;
+					var offsety = surfacedLayer.offsetTop -  event.clientY;
+					console.log(offsetx+" "+event.clientX);
+					console.log(offsety+" "+event.clientY);
+
+					document.onmousemove = function(event){
+						if(surfacedLayer.style.marginTop != '0px'){
+							surfacedLayer.style.marginTop = '0px';
+							surfacedLayer.style.marginLeft = '0px';
+						}
+
+						var y = event.clientY + offsety,
+						    x = event.clientX + offsetx,
+						    winX = document.documentElement.clientWidth || document.body.clientWidth,
+						    winY = document.documentElement.clientHeight || document.body.clientHeight;
+						if (y < 0 || y > winY - surfacedLayer.offsetHeight ){
+							surfacedLayer.style.top = y < 0 ? '0px' : winY - surfacedLayer.offsetHeight + 'px';
+						}
+						else {surfacedLayer.style.top = event.clientY + offsety +'px';}
+						if (x < 0 || x > winX - surfacedLayer.offsetWidth ){
+							surfacedLayer.style.left = x < 0 ? '0px' : winX - surfacedLayer.offsetWidth;
+						}
+						
+						else {surfacedLayer.style.left = event.clientX + offsetx +'px';}
+						}
+
+					};
+				
+				title.onmouseup = function(){
+					document.onmousemove = null;
+				};
+			
+				function init() {
+				var btn = document.getElementById('btn');
+				var btns = document.getElementsByClassName('btns')[0].getElementsByTagName('button');
+
+				btn.onclick =function(event){
+					var titleData = document.getElementById('titleData').value;
+					var contentData = document.getElementById('contentData').value;
+
+					if(!titleData){
+						titleData = '标题';
+					}
+					if(!contentData){
+						contentData = '内容';
+					}
+				
+					surfacedLayerContent(titleData,contentData);
+					wrap.onclick = close;
+
+				};
+
+				btns[0].onclick = close;
+				btns[1].onclick = close;
+			};
+			init();
+		})();
+	
+	</script>
+	</body>	
+</html>
