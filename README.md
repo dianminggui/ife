@@ -6,4 +6,4 @@
 1.[冒泡排序可视化](https://dianminggui.github.io/ife/BinBin/ife_js_5/ife-17.html)<br />
 2.[漂亮的页面](https://dianminggui.github.io/ife/XiaoWei/ife-7兼容版/ife-7.html)<br />
 3.[听指令的小方块](https://dianminggui.github.io/ife/YaoYao/task-5/ife-26.html)<br />
-
+4.[动画遍历多叉树](https://dianminggui.github.io/ife/BinBin/ife_js-8/ife-20.html)<br />
